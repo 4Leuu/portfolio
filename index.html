@@ -7,9 +7,14 @@
     <script src="./vue.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap"
+        rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <title>Portfolio - 4Leuu</title>
 </head>
+
 <body id="app">
     <header class="header">
         <div class="logo">
@@ -23,20 +28,63 @@
     </header>
     <main class="main">
         <section class="apresentacao">
-            <h1 class="titulo"> 
+            <h1 class="titulo">
                 Desenvolvedor<br>
                 Front End &<br>
                 UX/UI Designer
             </h1>
             <div class="apresentacao-img">
-                <img src="./imgs/fotoPerfil.jpg" alt="Foto de Perfil" width="336" height="336">
+                <img src="./imgs/fotoPerfil.jpg" alt="Foto de Perfil" width="400" height="400">
+            </div>
+        </section>
+        <section class="sobre-mim">
+            <div class="sobre-mim-texto">
+                <p>
+                Lorem ipsum dolor sit amet. Non placeat nobis sed reprehenderit velit id sapiente aliquid et culpa
+                corporis id saepe quia ab eligendi excepturi. Ut laudantium iusto eos omnis doloribus in aliquam quae
+                non totam libero aut fugit autem eum accusamus impedit.
+                Ea ullam quae quo quia praesentium qui minus repellendus a soluta deserunt. Est veritatis sequi sit nisi
+                harum ea nostrum quis in nesciunt omnis non explicabo officia est magni dignissimos. Eos laudantium
+                dicta hic doloribus voluptatem qui consequatur asperiores est sequi aperiam.
+                </p>
+            </div>
+            <div class="sobre-mim-titulo">
+                <h1>SOBRE </br> MIM</h1>
+            </div>
+        </section>
+        <section class="projetos">
+            <div class="projetos-titulo">
+                <h1>{{projetos.nome}}</h1>
             </div>
         </section>
     </main>
 
     <script>
         const vm = new Vue({
-            el: '#app'
+            el: '#app',
+            data: {
+                projetos: []
+            },
+            methods:{
+                fetchProjetos(){
+                    const apiUrl = "http://localhost:3000/projetos;"
+
+                    fetch(apiUrl).then(r => {
+                        if(!r.ok){
+                            throw new Error("Erro ao buscar dados da API");
+                        }
+                        return r.json();
+                    }).then(data => {
+                        this.projetos = data;
+                        
+                    }).catch(error => {
+                        console.error("Ocorreu um erro: ", error);
+                    })
+                }
+            },
+            created() {
+                this.fetchProjetos()
+            }
         })
     </script>
 </body>
